@@ -1,22 +1,22 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { userSliceProps, userSliceState } from "./types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { userSliceProps, userSliceState } from './types';
 
 const initialState: userSliceProps = {
-  username: "Thierry",
+  username: 'Thierry',
   password: 123456,
-  mail: "",
+  mail: '',
   persoInfos: {
-    firstname: "michel",
-    birthdate: "01/01/2000",
+    firstname: 'michel',
+    birthdate: '01/01/2000',
   },
 };
 
 export const userSlice = createSlice({
-  name: "userDatas",
+  name: 'userDatas',
   initialState: initialState,
   reducers: {
     setUsername: (state, action: PayloadAction<string>) => {
-        state.username = action.payload;
+      state.username = action.payload;
     },
     setUserDatas: (state, action: PayloadAction<userSliceProps>) => {
       state.username = action.payload.username;

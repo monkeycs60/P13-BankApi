@@ -1,17 +1,17 @@
-import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
-import { userSliceProps } from "./redux/types";
-import { setUsername, setUserDatas } from "./redux/userSlice";
-import { useState } from "react";
+import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSliceProps } from './redux/types';
+import { setUsername, setUserDatas } from './redux/userSlice';
+import { useState } from 'react';
 
 function App() {
   const dispatch = useDispatch();
-  const userOne = "Pierr";
+  const userOne = 'Pierr';
 
   const user = useSelector((state: userSliceProps) => state);
   console.log(user);
 
-  const [userDatas, setUserDatasState] = useState<string>("");
+  const [userDatas, setUserDatasState] = useState<string>('');
 
   return (
     <div className="App">
