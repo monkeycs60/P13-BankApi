@@ -5,7 +5,7 @@ import Account from '../components/Account';
 
 export const User = () => {
 	return (
-		<>
+		<div className="flexContainer">
 			<Navbar />
 			<main className="main bg-dark">
 				<SignInTop />
@@ -27,6 +27,6 @@ export const User = () => {
 				/>
 			</main>
 			<Footer />
-		</>
+		</div>
 	);
 };

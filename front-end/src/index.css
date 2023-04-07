@@ -21,6 +21,12 @@ body {
   flex: 1;
 }
 
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .bg-dark {
   background-color: #12002b;
 }
@@ -72,6 +78,15 @@ body {
 .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+}
+
+.wrap-header-connect a {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.wrap-header-connect i {
+  display: block;
 }
 
 .hero {

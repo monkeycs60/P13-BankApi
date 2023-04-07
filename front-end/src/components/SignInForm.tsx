@@ -17,7 +17,6 @@ export const SignInForm = () => {
           <label htmlFor="remember-me">Remember me</label>
         </div>
         <button className="sign-in-button">Sign In</button>
-        Sign In
       </form>
     </section>
   );
