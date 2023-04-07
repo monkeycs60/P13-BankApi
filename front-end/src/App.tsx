@@ -5,12 +5,12 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { Index } from './pages/Index';
 import { SignIn } from './pages/SignIn';
 import { User } from './pages/User';
-
+import { RootState } from './redux/store';
 
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector((state: userSliceProps) => state);
+  const user = useSelector((state: RootState) => state);
   console.log(user);
 
   const [userDatas, setUserDatasState] = useState<string>('');
