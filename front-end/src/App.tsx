@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userSliceProps } from './redux/types';
 import { useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Index from './pages';
+import { Index } from './pages/Index';
+import { SignIn } from './pages/SignIn';
+import { User } from './pages/User';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -15,9 +18,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Index />} />
-      {/* <Route path="/sign-in" element={<Login />} />
+      <Route path="/sign-in" element={<SignIn />} />
       <Route path="/user" element={<User />} />
-      <Route path="/error404" element={<NotFoundPage />} /> */}
+      {/* <Route path="/error404" element={<NotFoundPage />} />  */}
       <Route path="*" element={<Navigate to={'/error404'} />} />
     </Routes>
   );

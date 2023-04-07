@@ -6,7 +6,8 @@
    "extends": [
       "plugin:react/recommended",
       "standard-with-typescript",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "plugin:tailwindcss/recommended"
    ],
    "overrides": [],
    "parserOptions": {
@@ -16,14 +17,7 @@
    "plugins": ["react", "prettier"],
    "rules": {
       "prettier/prettier": "error",
-      "quotes": ["error", "single"],
       "tailwindcss/no-custom-classname": "off",
-      "semi": ["error", "always"],
-      "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
-      "padded-blocks": ["error", "never"],
-      "no-trailing-spaces": ["error", { "skipBlankLines": true }],
-      "react/no-unescaped-entities": "off",
-      "array-bracket-spacing": ["error", "never"],
-      "indent": ["error", 3]
+      "react/no-unescaped-entities": "off"
    }
 }
