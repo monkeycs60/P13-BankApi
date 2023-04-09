@@ -221,6 +221,12 @@ body {
   font-size: 1.2rem;
 }
 
+.input-error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
 .footer {
   display: flex;
   justify-content: center;
