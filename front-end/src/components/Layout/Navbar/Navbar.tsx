@@ -1,5 +1,7 @@
-import ArgentBankLogo from '../../assets/argentBankLogo.png';
+import ArgentBankLogo from '../../../assets/argentBankLogo.png';
 import { Link } from 'react-router-dom';
+import { Login } from './Login';
+import { Logout } from './Logout';
 
 export const Navbar = () => {
 	return (
@@ -13,10 +15,8 @@ export const Navbar = () => {
 				<h1 className="sr-only">Argent Bank</h1>
 			</Link>
 			<div className="wrap-header-connect">
-				<Link className="main-nav-item" to="/sign-in">
-					<i className="fa fa-user-circle"></i>
-					<p>Sign In</p>
-				</Link>
+				{/* <Login /> */}
+			<Logout />	
 			</div>
 		</nav>
 	);

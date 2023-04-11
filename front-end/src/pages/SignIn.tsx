@@ -1,4 +1,4 @@
-import { Navbar } from '../components/Layout/Navbar';
+import { Navbar } from '../components/Layout/Navbar/Navbar';
 import { Footer } from '../components/Layout/Footer';
 import { SignInForm } from '../components/SignInForm';
 

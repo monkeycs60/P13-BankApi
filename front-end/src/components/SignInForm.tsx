@@ -1,22 +1,91 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { usePostUserMutation, usePostProfileMutation } from '../redux/apiSlice';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const SignInForm = () => {
+	const navigate = useNavigate();
+
+	//If the token is present, redirect to the user dashboard
+	 useEffect (() => {
+		const token = Cookies.get('JSONWebToken');
+		if (token) {
+			navigate('/profile');
+		}
+	}, []);
+
+	const passwordValidator = z
+		.string()
+		.min(8)
+		.max(20)
+		.regex(/^[a-zA-Z0-9]+$/, {
+			message:
+				'Le mot de passe ne doit contenir que des lettres et/ou des chiffres.',
+		});
+
 	const schema = z.object({
-		username: z.string().min(3).max(20),
-		password: z.string().min(8).max(20),
+		username: z.string().email(),
+		password: passwordValidator,
 	});
 
 	type SignInForm = z.infer<typeof schema>;
 
-	const { register, handleSubmit, formState: { errors }
-  } = useForm<SignInForm>({
+	const userProfileSchema = z.object({
+		body: z.object({
+			id: z.string(),
+			firstName: z.string(),
+			lastName: z.string(),
+			email: z.string().email(),
+			createdAt: z.string().refine((value) => !isNaN(Date.parse(value))),
+			updatedAt: z.string().refine((value) => !isNaN(Date.parse(value))),
+		}),
+	});
+
+	type UserProfile = z.infer<typeof userProfileSchema>;
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<SignInForm>({
 		resolver: zodResolver(schema),
 	});
 
-	const onValid = (data: SignInForm) => {
-		console.log(data);
+	const [postUser, { isLoading }] = usePostUserMutation();
+	const [postProfile, { isLoading: isLoadingProfile }] = usePostProfileMutation();
+
+	const onValid = async (data: SignInForm) => {
+		try {
+			const response = await postUser({
+				email: data.username,
+				password: data.password,
+			}).unwrap();
+			console.log(response);
+			// Save the token, navigate to another page, etc.
+			Cookies.set('JSONWebToken', response.body.token);
+			// save the token in cookies
+			const token = Cookies.get('JSONWebToken');
+			if (token) {
+				const responseProfile: UserProfile = await postProfile({
+					token: token,
+				}).unwrap();
+				
+				const parsedProfile = userProfileSchema.safeParse(responseProfile);
+				if (parsedProfile.success) {
+					console.log(parsedProfile.data);
+					Cookies.set('userProfile', JSON.stringify(parsedProfile.data));
+				} else {
+					console.log(parsedProfile.error);
+				}	
+				navigate('/profile');
+			}
+		} catch (error) {
+			console.error('Login error:', error);
+			// Handle login error, show a message to the user, etc.
+		}
 	};
 
 	const onInvalid = (errors: any) => {
@@ -50,7 +119,9 @@ export const SignInForm = () => {
 					<input type="checkbox" id="remember-me" />
 					<label htmlFor="remember-me">Remember me</label>
 				</div>
-				<button className="sign-in-button">Sign In</button>
+				<button className="sign-in-button" disabled={isLoading}>
+					Sign In
+				</button>
 			</form>
 		</section>
 	);

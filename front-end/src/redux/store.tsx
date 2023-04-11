@@ -20,9 +20,14 @@ export type RootState = {
 export const store = configureStore({
 	reducer: {
 		userDatas: persistedReducer,
-    [userApiSlice.reducerPath]: userApiSlice.reducer,
+		[userApiSlice.reducerPath]: userApiSlice.reducer,
 	},
-	middleware: [thunk],
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: ['persist/PERSIST'],
+			},
+		}).concat(userApiSlice.middleware),
 });
 
 export const persistor = persistStore(store);

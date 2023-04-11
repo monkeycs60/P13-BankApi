@@ -1,11 +1,10 @@
 export type userSliceProps = {
-    username: string;
-    password: number;
-    mail: string;
-    persoInfos: {
-        firstname: string;
-        birthdate: string;
-    };
+    email: string;
+    firstName: string;
+    lastName: string;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
 };
 
 export type userSliceState = {
