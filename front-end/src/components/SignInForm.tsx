@@ -5,12 +5,15 @@ import { usePostUserMutation, usePostProfileMutation } from '../redux/apiSlice';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { setUserInfos } from '../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const SignInForm = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	//If the token is present, redirect to the user dashboard
-	 useEffect (() => {
+	useEffect(() => {
 		const token = Cookies.get('JSONWebToken');
 		if (token) {
 			navigate('/profile');
@@ -55,7 +58,8 @@ export const SignInForm = () => {
 	});
 
 	const [postUser, { isLoading }] = usePostUserMutation();
-	const [postProfile, { isLoading: isLoadingProfile }] = usePostProfileMutation();
+	const [postProfile, { isLoading: isLoadingProfile }] =
+		usePostProfileMutation();
 
 	const onValid = async (data: SignInForm) => {
 		try {
@@ -72,14 +76,17 @@ export const SignInForm = () => {
 				const responseProfile: UserProfile = await postProfile({
 					token: token,
 				}).unwrap();
-				
+
 				const parsedProfile = userProfileSchema.safeParse(responseProfile);
 				if (parsedProfile.success) {
-					console.log(parsedProfile.data);
+					console.log(parsedProfile.data.body);
 					Cookies.set('userProfile', JSON.stringify(parsedProfile.data));
+					const { firstName, lastName, email, id } =
+						parsedProfile.data.body;
+					dispatch(setUserInfos({ firstName, lastName, email, id }));
 				} else {
 					console.log(parsedProfile.error);
-				}	
+				}
 				navigate('/profile');
 			}
 		} catch (error) {

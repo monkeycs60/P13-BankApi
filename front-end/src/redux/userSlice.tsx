@@ -3,20 +3,30 @@ import { userSliceProps, userSliceState } from './types';
 
 const initialState: userSliceProps = {
 	email: '',
-  firstName: '',
-  lastName: '',
+	firstName: '',
+	lastName: '',
 	id: '',
 	createdAt: '',
-  updatedAt: '',
+	updatedAt: '',
 };
 
 export const userSlice = createSlice({
 	name: 'userDatas',
 	initialState: initialState,
 	reducers: {
-		setNames: (state, action: PayloadAction<string>) => {
-			state.firstName = action.payload;
-      state.lastName = action.payload;
+		setUserInfos: (
+			state,
+			action: PayloadAction<{
+				id: string;
+				firstName: string;
+				lastName: string;
+				email: string;
+			}>
+		) => {
+			state.id = action.payload.id;
+			state.firstName = action.payload.firstName;
+			state.lastName = action.payload.lastName;
+			state.email = action.payload.email;
 		},
 		setUserDatas: (state, action: PayloadAction<userSliceProps>) => {
 			state.firstName = action.payload.firstName;
@@ -24,6 +34,6 @@ export const userSlice = createSlice({
 	},
 });
 
-export const { setNames, setUserDatas } = userSlice.actions;
+export const { setUserInfos, setUserDatas } = userSlice.actions;
 
 export default userSlice.reducer;

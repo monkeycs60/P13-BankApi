@@ -4,7 +4,7 @@ import { CgProfile } from 'react-icons/cg';
 import { usePostProfileMutation } from '../../../redux/apiSlice';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setNames } from '../../../redux/userSlice';
+import { setUserInfos } from '../../../redux/userSlice';
 import { z } from 'zod';
 
 export const Logout = () => {
