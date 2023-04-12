@@ -28,12 +28,10 @@ export const userSlice = createSlice({
 			state.lastName = action.payload.lastName;
 			state.email = action.payload.email;
 		},
-		setUserDatas: (state, action: PayloadAction<userSliceProps>) => {
-			state.firstName = action.payload.firstName;
-		},
+		resetUserInfos: (state) => initialState,
 	},
 });
 
-export const { setUserInfos, setUserDatas } = userSlice.actions;
+export const { setUserInfos, resetUserInfos } = userSlice.actions;
 
 export default userSlice.reducer;
