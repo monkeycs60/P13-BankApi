@@ -1,12 +1,13 @@
 export type userSliceProps = {
-    email: string;
-    firstName: string;
-    lastName: string;
-    id: string;
-    createdAt: string;
-    updatedAt: string;
+	email: string;
+	firstName: string;
+	lastName: string;
+	id: string;
+	createdAt: string;
+	updatedAt: string;
 };
 
 export type userSliceState = {
-    userSlice: userSliceProps;
+	userDatas: userSliceProps;
+	userApiSlice: any;
 };
