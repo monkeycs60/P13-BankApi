@@ -4,13 +4,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { usePostUserMutation, usePostProfileMutation } from '../redux/apiSlice';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setUserInfos } from '../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const SignInForm = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const [emailValue, setEmailValue] = useState('');
+	useEffect(() => {
+		//if user have already been connected, the email is stored in a cookie, then we can prefill the email input
+		const userMail = Cookies.get('userMail');
+		if (userMail) {
+			setEmailValue(userMail);
+		}
+	}, []);
 
 	//If the token is present, redirect to the user dashboard
 	useEffect(() => {
@@ -32,6 +41,7 @@ export const SignInForm = () => {
 	const schema = z.object({
 		username: z.string().email(),
 		password: passwordValidator,
+		rememberMe: z.boolean(),
 	});
 
 	type SignInForm = z.infer<typeof schema>;
@@ -55,6 +65,9 @@ export const SignInForm = () => {
 		formState: { errors },
 	} = useForm<SignInForm>({
 		resolver: zodResolver(schema),
+		defaultValues: {
+			rememberMe: false,
+		},
 	});
 
 	const [postUser, { isLoading }] = usePostUserMutation();
@@ -80,7 +93,9 @@ export const SignInForm = () => {
 				const parsedProfile = userProfileSchema.safeParse(responseProfile);
 				if (parsedProfile.success) {
 					console.log(parsedProfile.data.body);
-					Cookies.set('userProfile', JSON.stringify(parsedProfile.data));
+					if (data.rememberMe) {
+					Cookies.set('userMail', parsedProfile.data.body.email);
+					}
 					const { firstName, lastName, email, id } =
 						parsedProfile.data.body;
 					dispatch(setUserInfos({ firstName, lastName, email, id }));
@@ -106,7 +121,12 @@ export const SignInForm = () => {
 			<form onSubmit={handleSubmit(onValid, onInvalid)}>
 				<div className="input-wrapper">
 					<label htmlFor="username">Username</label>
-					<input type="text" id="username" {...register('username')} />
+					<input
+						type="text"
+						id="username"
+						{...register('username')}
+						defaultValue={emailValue}
+					/>
 					{errors.username && (
 						<p className="input-error-message">
 							{errors.username.message}
@@ -123,7 +143,11 @@ export const SignInForm = () => {
 					)}
 				</div>
 				<div className="input-remember">
-					<input type="checkbox" id="remember-me" />
+					<input
+						type="checkbox"
+						id="remember-me"
+						{...register('rememberMe')}
+					/>
 					<label htmlFor="remember-me">Remember me</label>
 				</div>
 				<button className="sign-in-button" disabled={isLoading}>
