@@ -7,7 +7,6 @@ import { useAuth } from '../../../hooks/useAuth';
 export const Navbar = () => {
 	const { isAuthenticated } = useAuth();
 
-
 	return (
 		<nav className="main-nav">
 			<Link className="main-nav-logo" to="/">
@@ -19,7 +18,7 @@ export const Navbar = () => {
 				<h1 className="sr-only">Argent Bank</h1>
 			</Link>
 			<div className="wrap-header-connect">
-				{ isAuthenticated ? <Logout /> : <Login />}
+				{isAuthenticated ? <Logout /> : <Login />}
 			</div>
 		</nav>
 	);

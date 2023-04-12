@@ -6,7 +6,6 @@ export const useAuth = () => {
 	const user = useSelector((state: userSliceState) => state.userDatas);
 	const isAuthenticated = !!Cookies.get('JSONWebToken');
 	console.log('isAuthenticated', isAuthenticated);
-	console.table(user);
 
 	return { user, isAuthenticated };
 };

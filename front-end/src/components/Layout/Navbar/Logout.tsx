@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom';
 import { MdLogout } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
-import { usePostProfileMutation } from '../../../redux/apiSlice';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserInfos } from '../../../redux/userSlice';
-import { z } from 'zod';
+import { useAuth } from '../../../hooks/useAuth';
 
 export const Logout = () => {
+	const { user } = useAuth();
 	return (
 		<>
-			<div>
-				<CgProfile size={20} />
+			<div className="nav-logout-container">
+				<div className="nav-user-info">
+					<CgProfile size={30} className="icon-responsive" />
+					<p>{user.firstName}</p>
+				</div>
 				<Link className="main-nav-item" to="/sign-in">
-					<MdLogout size={20} />
+					<MdLogout size={30} className="icon-responsive" />
 					<p>Sign Out</p>
 				</Link>
 			</div>
