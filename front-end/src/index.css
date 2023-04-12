@@ -68,20 +68,26 @@ body {
 }
 
 @media (max-width: 480px) {
-  .nav-logout-container {
-    font-size: 0.6rem;
-  }
-  .icon-responsive {
-    width: 20px;
-    height: 20px;
-  }
+	.nav-logout-container {
+		font-size: 0.6rem;
+	}
+	.icon-responsive {
+		width: 20px;
+		height: 20px;
+	}
 }
 
 .nav-user-info {
 	display: flex;
 	align-items: center;
 	gap: 0.7vw;
-  font-weight: bold;
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.nav-username:hover {
+	text-decoration: underline;
 }
 
 .main-nav-item {
@@ -89,7 +95,7 @@ body {
 	margin-right: 0.5rem;
 }
 
-.main-nav-item:hover {
+.main-nav-item p:hover {
 	text-decoration: underline;
 }
 

@@ -8,10 +8,10 @@ export const Logout = () => {
 	return (
 		<>
 			<div className="nav-logout-container">
-				<div className="nav-user-info">
+				<Link className="nav-user-info" to="/profile">
 					<CgProfile size={30} className="icon-responsive" />
-					<p>{user.firstName}</p>
-				</div>
+					<p className='nav-username'>{user.firstName}</p>
+				</Link>
 				<Link className="main-nav-item" to="/sign-in">
 					<MdLogout size={30} className="icon-responsive" />
 					<p>Sign Out</p>
