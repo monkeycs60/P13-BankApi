@@ -14,14 +14,8 @@ export const SignInForm = () => {
 	const dispatch = useDispatch();
 	const { user } = useAuth();
 
-	const [emailValue, setEmailValue] = useState('');
-	useEffect(() => {
-		//if user have already been connected, the email is stored in a cookie, then we can prefill the email input
-		const userMail = Cookies.get('userMail');
-		if (userMail) {
-			setEmailValue(userMail);
-		}
-	}, []);
+	// gestion de l'échec de connexion
+	const [errorMessage, setErrorMessage] = useState('');
 
 	//If the token is present, redirect to the user dashboard
 	useEffect(() => {
@@ -65,12 +59,23 @@ export const SignInForm = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		setValue,
 	} = useForm<SignInForm>({
 		resolver: zodResolver(schema),
 		defaultValues: {
 			rememberMe: false,
 		},
 	});
+
+	const [emailValue, setEmailValue] = useState('');
+	useEffect(() => {
+		//if user have already been connected, the email is stored in a cookie, then we can prefill the email input
+		const userMail = Cookies.get('userMail');
+		if (userMail) {
+			setEmailValue(userMail);
+			setValue('username', userMail);
+		}
+	}, [setValue]);
 
 	const [postUser, { isLoading }] = usePostUserMutation();
 	const [postProfile, { isLoading: isLoadingProfile }] =
@@ -87,6 +92,7 @@ export const SignInForm = () => {
 			Cookies.set('JSONWebToken', response.body.token);
 			// save the token in cookies
 			const token = Cookies.get('JSONWebToken');
+			setErrorMessage('');
 			if (token) {
 				const responseProfile: UserProfile = await postProfile({
 					token: token,
@@ -123,6 +129,9 @@ export const SignInForm = () => {
 
 	const onInvalid = (errors: any) => {
 		console.log(errors);
+		setErrorMessage(
+			'La connexion a échoué. Veuillez vérifier vos identifiants.'
+		);
 	};
 
 	return (
@@ -166,6 +175,7 @@ export const SignInForm = () => {
 					Sign In
 				</button>
 			</form>
+			{errorMessage && <p className="input-error-message">{errorMessage}</p>}
 		</section>
 	);
 };
