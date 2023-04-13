@@ -5,6 +5,7 @@ export type userSliceProps = {
 	id: string;
 	createdAt: string;
 	updatedAt: string;
+	rememberMe: boolean;
 };
 
 export type userSliceState = {

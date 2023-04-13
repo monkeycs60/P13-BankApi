@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { setUserInfos } from '../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAuth } from '../hooks/useAuth';
 
 export const SignInForm = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { user } = useAuth();
 
 	const [emailValue, setEmailValue] = useState('');
 	useEffect(() => {
@@ -94,11 +96,20 @@ export const SignInForm = () => {
 				if (parsedProfile.success) {
 					console.log(parsedProfile.data.body);
 					if (data.rememberMe) {
-					Cookies.set('userMail', parsedProfile.data.body.email);
+						Cookies.set('userMail', parsedProfile.data.body.email);
+						//set remember me checkbox checked by default
 					}
 					const { firstName, lastName, email, id } =
 						parsedProfile.data.body;
-					dispatch(setUserInfos({ firstName, lastName, email, id }));
+					dispatch(
+						setUserInfos({
+							firstName,
+							lastName,
+							email,
+							id,
+							rememberMe: data.rememberMe,
+						})
+					);
 				} else {
 					console.log(parsedProfile.error);
 				}
@@ -147,6 +158,7 @@ export const SignInForm = () => {
 						type="checkbox"
 						id="remember-me"
 						{...register('rememberMe')}
+						defaultChecked={user.rememberMe}
 					/>
 					<label htmlFor="remember-me">Remember me</label>
 				</div>
