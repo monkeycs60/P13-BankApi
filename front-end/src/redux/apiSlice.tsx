@@ -31,8 +31,19 @@ export const userApiSlice = createApi({
 				body,
 			}),
 		}),
+		putProfile: builder.mutation({
+			query: (body) => ({
+				url: '/profile',
+				method: 'PUT',
+				body,
+			}),
+		}),
 	}),
 });
 
-export const { useGetUserQuery, usePostUserMutation, usePostProfileMutation } =
-	userApiSlice;
+export const {
+	useGetUserQuery,
+	usePostUserMutation,
+	usePostProfileMutation,
+	usePutProfileMutation,
+} = userApiSlice;

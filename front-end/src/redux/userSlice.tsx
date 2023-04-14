@@ -44,9 +44,20 @@ export const userSlice = createSlice({
 				state.rememberMe = true;
 			}
 		},
+		updateUserInfos: (
+			state,
+			action: PayloadAction<{
+				firstName: string;
+				lastName: string;
+			}>
+		) => {
+			state.firstName = action.payload.firstName;
+			state.lastName = action.payload.lastName;
+		},
 	},
 });
 
-export const { setUserInfos, resetUserInfos } = userSlice.actions;
+export const { setUserInfos, resetUserInfos, updateUserInfos } =
+	userSlice.actions;
 
 export default userSlice.reducer;

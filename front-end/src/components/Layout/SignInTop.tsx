@@ -1,7 +1,12 @@
 import { useAuth } from '../../hooks/useAuth';
+import { usePutProfileMutation } from '../../redux/apiSlice';
+import { useDispatch } from 'react-redux';
+import { updateUserInfos } from '../../redux/userSlice';
 
 const SignInTop = () => {
+	const dispatch = useDispatch();
 	const { user } = useAuth();
+	const [putProfile, { isLoading }] = usePutProfileMutation();
 
 	const displayEdition = () => {
 		const form = document.querySelector('.form-update');
@@ -24,6 +29,38 @@ const SignInTop = () => {
 		form?.classList.add('invisible');
 	};
 
+	const handleSave = async (
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+	) => {
+		event.preventDefault();
+		const form = document.querySelector('.form-update');
+		const firstNameInput = form?.querySelector(
+			'input[type="text"]:nth-child(1)'
+		) as HTMLInputElement;
+		const lastNameInput = form?.querySelector(
+			'input[type="text"]:nth-child(2)'
+		) as HTMLInputElement;
+		const editedArea = document.querySelector('.edited-area');
+
+		if (firstNameInput && lastNameInput) {
+			const updatedUser = {
+				...user,
+				firstName: firstNameInput.value,
+				lastName: lastNameInput.value,
+			};
+			try {
+				await putProfile(updatedUser).unwrap();
+				// Update the local user state
+				dispatch(updateUserInfos(updatedUser));
+
+				editedArea?.classList.remove('invisible');
+				form?.classList.add('invisible');
+			} catch (error) {
+				console.error('Failed to update user profile', error);
+			}
+		}
+	};
+
 	return (
 		<div className="header">
 			<h2>Welcome back</h2>
@@ -41,7 +78,7 @@ const SignInTop = () => {
 					<input type="text" defaultValue={user.lastName} />
 				</div>
 				<div className="update-form-buttons">
-					<button className="">Save</button>
+					<button className="" onClick={handleSave}>Save</button>
 					<button className="" onClick={cancelChange}>
 						Cancel
 					</button>
