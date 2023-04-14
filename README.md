@@ -56,9 +56,12 @@ npm run dev:server
 npm run populate-db
 ```
 
-# Shut down the server with Ctrl+C
-
 The backend runs on port 3001.
+
+```bash
+# Then, as the database is updated, shut down the server with Ctrl+C
+```
+
 
 - Frontend installation:
 
