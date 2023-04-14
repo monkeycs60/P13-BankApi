@@ -23,13 +23,15 @@ This project is focused on developing the user profile page for SportSee, a star
 ## Installation
 
 - Backend installation:
-  `bash
-cd Project-10-Bank-API
-`
 
       ```bash
-      npm install
-      ```
+
+  cd Project-10-Bank-API
+  ```
+
+        ```bash
+        npm install
+        ```
 
   The backend runs on port 3001.
 
@@ -43,21 +45,21 @@ cd Project-10-Bank-API
   npm install
   ```
 
-  - Run the app (using concurrently):
+- Run the app (using concurrently):
 
-  1.  Run the following command in the root of the project:
+     Run the following command in the root of the project:
 
   ```bash
   npm run start
   ```
 
-  2. Open your preferred web browser and navigate to
+    Open your preferred web browser and navigate to
 
   ```bash
   http://127.0.0.1:5173/
   ```
 
-  (_Vite_ will automatically open the browser for you)
+  **Vite** will automatically open the browser for you
 
   ## Prerequisites
 
