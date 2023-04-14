@@ -12,7 +12,24 @@
 
 ![Author](https://img.shields.io/badge/Author-Cl%C3%A9ment%20Serizay-blue?style=for-the-badge)
 
-This project is focused on developing the user profile page for SportSee, a startup dedicated to sports coaching. This dashboard will allow users to track the several data and stats about activities, performance and nutrition.
+This project aims to use a bank API using Node.js, Express and MongoDB and connect it to a React front-end using Vite.
+It uses basic create, read and update operations. User can login, navigate on profile page, update his profile and logout.
+
+Sign In is not implemented yet. The user can log in with the following credentials:
+
+### Tony Stark
+
+- First Name: `Tony`
+- Last Name: `Stark`
+- Email: `tony@stark.com`
+- Password: `password123`
+
+### Steve Rogers
+
+- First Name: `Steve`,
+- Last Name: `Rogers`,
+- Email: `steve@rogers.com`,
+- Password: `password456`
 
 ## Table of Contents
 
@@ -24,16 +41,24 @@ This project is focused on developing the user profile page for SportSee, a star
 
 - Backend installation:
 
-      ```bash
-
+```bash
   cd Project-10-Bank-API
-  ```
+```
 
-        ```bash
-        npm install
-        ```
+```bash
+# Install dependencies
+npm install
 
-  The backend runs on port 3001.
+# Start local dev server
+npm run dev:server
+
+# Populate database with two users
+npm run populate-db
+```
+
+# Shut down the server with Ctrl+C
+
+The backend runs on port 3001.
 
 - Frontend installation:
 
@@ -47,13 +72,13 @@ This project is focused on developing the user profile page for SportSee, a star
 
 - Run the app (using concurrently):
 
-     Run the following command in the root of the project:
+  Run the following command in the root of the project:
 
   ```bash
   npm run start
   ```
 
-    Open your preferred web browser and navigate to
+  Open your preferred web browser and navigate to
 
   ```bash
   http://127.0.0.1:5173/
