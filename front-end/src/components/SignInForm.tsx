@@ -27,8 +27,8 @@ export const SignInForm = () => {
 
 	const passwordValidator = z
 		.string()
-		.min(8)
-		.max(20)
+		.min(8, { message: 'Le mot de passe doit contenir au moins 8 caractères.' })
+		.max(20, { message: 'Le mot de passe doit contenir au plus 20 caractères.' })
 		.regex(/^[a-zA-Z0-9]+$/, {
 			message:
 				'Le mot de passe ne doit contenir que des lettres et/ou des chiffres.',
