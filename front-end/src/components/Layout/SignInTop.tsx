@@ -129,7 +129,7 @@ const SignInTop = () => {
 						Cancel
 					</button>
 				</div>
-				<div className="input-error-message">
+				<div className="input-error-message-update">
 					{errors.firstName && <p>{errors.firstName.message}</p>}
 					{errors.lastName && <p>{errors.lastName.message}</p>}
 				</div>
