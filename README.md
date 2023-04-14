@@ -41,27 +41,26 @@ Sign In is not implemented yet. The user can log in with the following credentia
 
 - Backend installation:
 
-```bash
+  ```bash
   cd Project-10-Bank-API
-```
+  ```
 
-```bash
-# Install dependencies
-npm install
+  ```bash
+  # Install dependencies
+  npm install
 
-# Start local dev server
-npm run dev:server
+  # Start local dev server
+  npm run dev:server
 
-# Populate database with two users
-npm run populate-db
-```
+  # Populate database with two users
+  npm run populate-db
+  ```
 
-The backend runs on port 3001.
+  The backend runs on port 3001.
 
-```bash
-# Then, as the database is updated, shut down the server with Ctrl+C
-```
-
+  ```bash
+  # Then, as the database is updated, shut down the server with Ctrl+C
+  ```
 
 - Frontend installation:
 
