@@ -118,7 +118,7 @@ paths:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Transactions API
+      summary: Current transactions
       description: API for fetching user transactions
       parameters:
         - in: header
@@ -137,13 +137,15 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
+        "503":
+          description: "Service Unavailable"
   /user/profile/transactions/{id}:
     get:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Transaction API
+      summary: Specific transaction
       description: API for fetching a single user transaction
       parameters:
         - in: header
@@ -176,7 +178,7 @@ paths:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Transaction API
+      summary: Create new transaction
       description: API for creating a user transaction
       parameters:
         - in: header
@@ -198,7 +200,7 @@ paths:
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
-          description: Invalid Fields
+          description: Invalid Fields  
         "500":
           description: Internal Server Error
     patch:
@@ -206,7 +208,7 @@ paths:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Transaction API
+      summary: Update transaction
       description: API for updating a user transaction
       parameters:
         - in: header
@@ -234,14 +236,16 @@ paths:
             $ref: "#/definitions/ApiResponse"
         "400":
           description: Invalid Fields
+        "404":
+          description: "Transaction not found"  
         "500":
-          description: Internal Server Error
+          description: Internal Server Error  
     delete:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Transaction API
+      summary: Delete transaction
       description: API for deleting a user transaction
       parameters:
         - in: header
@@ -263,6 +267,8 @@ paths:
             $ref: "#/definitions/ApiResponse"
         "400":
           description: Invalid Fields
+        "404":
+          description: "Transaction not found"
         "500":
           description: Internal Server Error
 
