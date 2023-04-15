@@ -112,14 +112,14 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/transactions:
+  /user/profile/transactions:
     get:
       security:
         - Bearer: []
       tags:
-        - User Module
+        - Transaction Module
       summary: User Transactions API
-      description: API for fetching a user transactions
+      description: API for fetching user transactions
       parameters:
         - in: header
           name: Authorization
@@ -132,19 +132,19 @@ paths:
         "200":
           description: User transactions retrieved successully
           schema:
-            $ref: "#/definitions/ApiResponse"
+            $ref: "#/definitions/ApiResponseTransactions"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/transactions/{id}:
+  /user/profile/transactions/{id}:
     get:
       security:
         - Bearer: []
       tags:
-        - User Module
+        - Transaction Module
       summary: User Transaction API
-      description: API for fetching a user transaction
+      description: API for fetching a single user transaction
       parameters:
         - in: header
           name: Authorization
@@ -162,16 +162,50 @@ paths:
         "200":
           description: User transaction retrieved successully
           schema:
+            $ref: "#/definitions/ApiResponseSingleTransaction"
+        "400":
+          description: Invalid Fields
+        "404":
+          description: "Transaction not found"
+        "500":
+          description: Internal Server Error
+        "503":
+          description: "Service Unavailable"
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: User Transaction API
+      description: API for creating a user transaction
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Create user transaction attributes
+          required: true
+          schema:
+            $ref: "#/definitions/UserTransactions"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User transaction retrieved successully
+          schema:
             $ref: "#/definitions/ApiResponse"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
-    put:
+    patch:
       security:
         - Bearer: []
       tags:
-        - User Module
+        - Transaction Module
       summary: User Transaction API
       description: API for updating a user transaction
       parameters:
@@ -190,7 +224,7 @@ paths:
           description: Update user transaction attributes
           required: true
           schema:
-            $ref: "#/definitions/UserTransaction"
+            $ref: "#/definitions/UserSingleTransaction"
       produces:
         - application/json
       responses:
@@ -206,7 +240,7 @@ paths:
       security:
         - Bearer: []
       tags:
-        - User Module
+        - Transaction Module
       summary: User Transaction API
       description: API for deleting a user transaction
       parameters:
@@ -220,36 +254,6 @@ paths:
           type: string
           description: Transaction ID
           required: true
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: User transaction retrieved successully
-          schema:
-            $ref: "#/definitions/ApiResponse"
-        "400":
-          description: Invalid Fields
-        "500":
-          description: Internal Server Error
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: User Transaction API
-      description: API for creating a user transaction
-      parameters:
-        - in: header
-          name: Authorization
-          type: string
-          description: Attach Bearer JWT token
-          required: true
-        - in: body
-          name: body
-          description: Create user transaction attributes
-          required: true
-          schema:
-            $ref: "#/definitions/UserTransaction"
       produces:
         - application/json
       responses:
@@ -316,15 +320,77 @@ definitions:
         type: string
       lastName:
         type: string
-  UserTransaction:
+  ApiResponseTransactions:
     type: object
     properties:
-      amount:
-        type: number
-      description:
+      status:
+        type: integer
+      message:
         type: string
-      type:
+      transactions:
+        type: array
+        items:
+          type: object
+        properties:
+          date:
+            type: string
+            description: Date of the transaction
+          description:
+            type: string
+            description: Description of the transaction
+          amount:
+            type: number
+            description: Amount of the transaction
+          balance:
+            type: number
+            description: Balance of the account after the transaction
+  ApiResponseSingleTransaction:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
         type: string
-        enum:
-          - credit
-          - debit       
+      transaction:
+        type: object
+        properties:
+          id:
+            type: string
+          transactionType:
+            type: string
+          category:
+            type: string
+          notes:
+            type: string             
+  UserTransactions:
+    type: array
+    items:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date of the transaction
+        description:
+          type: string
+          description: Description of the transaction
+        amount:
+          type: number
+          description: Amount of the transaction
+        balance:
+          type: number
+          description: Balance of the account after the transaction
+  UserSingleTransaction:
+    type: object
+    properties:
+      id: 
+        type: string
+        description: Transaction ID
+      transactionType:
+        type: string
+        description: Type of transaction
+      category:
+        type: string
+        description: Category of the transaction
+      notes:
+        type: string
+        description: Notes about the transaction
