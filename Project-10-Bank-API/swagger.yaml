@@ -359,6 +359,9 @@ definitions:
         items:
           type: object
           properties:
+            id:
+              type: string
+              description: Transaction ID
             date:
               type: string
               description: Date of the transaction
@@ -394,6 +397,9 @@ definitions:
     items:
       type: object
       properties:
+        id:
+          type: string
+          description: Transaction ID      
         date:
           type: string
           description: Date of the transaction
