@@ -2,8 +2,13 @@ import { Navbar } from '../components/Layout/Navbar/Navbar';
 import { Footer } from '../components/Layout/Footer';
 import SignInTop from '../components/Layout/SignInTop';
 import Account from '../components/Account';
+import { useAuth } from '../hooks/useAuth';
+import { redirect, Navigate } from 'react-router-dom';
 
 export const User = () => {
+	const { isAuthenticated } = useAuth();
+	if (!isAuthenticated) return <Navigate to="/" />;
+
 	return (
 		<div className="flexContainer">
 			<Navbar />
